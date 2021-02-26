@@ -85,9 +85,12 @@ fi
 #Installing Ubiquiti UniFi Controller
 clear
 echo Step 2: Installing Ubiquiti UniFi Controller...
-echo 'deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/ubnt-unifi.list
-sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ubnt.com/unifi/unifi-repo.gpg
+echo 'deb http://www.ui.com/downloads/unifi/debian stable ubiquiti' | sudo tee /etc/apt/sources.list.d/ubnt-unifi.list
+sudo wget -O /etc/apt/trusted.gpg.d/unifi-repo.gpg https://dl.ui.com/unifi/unifi-repo.gpg
 sudo apt-get update && sudo apt-get dist-upgrade -y && sudo apt-get install unifi haveged -y
+sudo apt-get install default-jre-headless -y
+sudo service unifi restart
+sleep 5
 
 #Configure Ubiquiti UniFi Controller Java Memory (heap size) Allocation
 clear
@@ -137,6 +140,8 @@ else
     echo unifi.xms=256 | sudo tee -a /usr/lib/unifi/data/system.properties
     echo unifi.xmx=1024 | sudo tee -a /usr/lib/unifi/data/system.properties
 fi
+
+sudo service unifi restart
 
 echo 'Your Ubiquiti UniFi Controller has been installed & modified to your preference (if any)!'
 echo 'Share this with others if this script has helped you!'
